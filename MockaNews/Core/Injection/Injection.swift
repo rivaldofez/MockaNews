@@ -14,7 +14,7 @@ final class Injection: NSObject {
         return NewsRepository.sharedInstance(remote)
     }
     
-    private func provideHome() -> HomeUseCase {
+    func provideHome() -> HomeUseCase {
         let repository = provideRepository()
         return HomeInteractor(repository: repository)
     }

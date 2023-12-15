@@ -9,10 +9,14 @@ import UIKit
 
 
 protocol HomeViewProtocol {
+    var presenter: HomePresenterProtocol? { get set }
     func updateNewsList(with news: [News])
 }
 
 class HomeViewController: UIViewController, HomeViewProtocol {
+    var presenter: HomePresenterProtocol?
+    
+    
     func updateNewsList(with news: [News]) {
         
     }
