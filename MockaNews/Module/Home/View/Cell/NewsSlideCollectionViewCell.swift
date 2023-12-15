@@ -43,6 +43,8 @@ class NewsSlideCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configureConstraints()
     }
     
     private func configureConstraints() {
@@ -53,14 +55,14 @@ class NewsSlideCollectionViewCell: UICollectionViewCell {
         let thumbnailImageViewConstraints = [
             thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             thumbnailImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             thumbnailImageView.heightAnchor.constraint(equalToConstant: 250)
         ]
         
         let tagLabelConstraints = [
             tagLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor),
             tagLabel.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor),
-            tagLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 8)
+            tagLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 16)
         ]
         
         let titleLabelConstraints = [
