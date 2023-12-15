@@ -11,6 +11,7 @@ class HomeViewController: UIViewController {
     
     private let latestTitleLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "LATEST NEWS"
         label.textColor = .label
         label.font = .systemFont(ofSize: 24)
@@ -31,6 +32,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .systemBackground
         configureConstraints()
         
         newsTableView.delegate = self
@@ -45,7 +47,7 @@ class HomeViewController: UIViewController {
         let latestTitleLabelConstraints = [
             latestTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             latestTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            latestTitleLabel.topAnchor.constraint(equalTo: view.topAnchor)
+            latestTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ]
         
         let newsTableViewConstraints = [

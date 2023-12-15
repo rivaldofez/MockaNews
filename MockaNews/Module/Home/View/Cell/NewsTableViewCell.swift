@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class NewsTableViewCell: UITableViewCell {
     static let identifier = String(describing: NewsTableViewCell.self)
@@ -54,6 +55,9 @@ class NewsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureConstraints()
+        
+        guard let imageUrl = URL(string: "https://cdn.antaranews.com/cache/1200x800/2020/09/02/D042385E-5A43-4458-B15C-0864B6E728BE.jpeg") else { return }
+        thumbnailImageView.sd_setImage(with: imageUrl)
     }
     
     private func configureConstraints() {
@@ -63,10 +67,10 @@ class NewsTableViewCell: UITableViewCell {
         contentView.addSubview(timePostLabel)
         
         let thumbnailImageViewConstraints = [
-            thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            thumbnailImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            thumbnailImageView.heightAnchor.constraint(equalToConstant: 150)
+            thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            thumbnailImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            thumbnailImageView.heightAnchor.constraint(equalToConstant: 250)
         ]
         
         let tagLabelConstraints = [
@@ -84,7 +88,8 @@ class NewsTableViewCell: UITableViewCell {
         let timePostLabelConstraints = [
             timePostLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor),
             timePostLabel.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor),
-            timePostLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16)
+            timePostLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            timePostLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ]
         
         NSLayoutConstraint.activate(thumbnailImageViewConstraints)
