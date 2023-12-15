@@ -16,9 +16,16 @@ protocol HomeViewProtocol {
 class HomeViewController: UIViewController, HomeViewProtocol {
     var presenter: HomePresenterProtocol?
     
+    private var newsTableData: [News] = []
+    
     
     func updateNewsList(with news: [News]) {
-        
+        DispatchQueue.main.async {
+            self.newsTableData.removeAll()
+            self.newsTableData.append(contentsOf: news)
+            self.newsTableView.reloadData()
+        }
+
     }
     
     private let latestTitleLabel: UILabel = {
@@ -76,7 +83,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return newsTableData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

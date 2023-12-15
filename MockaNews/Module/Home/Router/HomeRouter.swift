@@ -23,7 +23,7 @@ class HomeRouter: HomeRouterProtocol {
         
         var view: HomeViewProtocol = HomeViewController()
         var presenter: HomePresenterProtocol = HomePresenter()
-        var interactor: HomeUseCase = Injection().provideHome()
+        let interactor: HomeUseCase = Injection().provideHome()
         
         view.presenter = presenter
         presenter.router = router
