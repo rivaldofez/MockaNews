@@ -8,8 +8,22 @@
 import Foundation
 import RxSwift
 
-protocol NewsRepository {
-    func getNews() -> Observable<[News]
+protocol NewsRepositoryProtocol {
+    func getNews() -> Observable<[News]>
+}
+
+final class NewsRepository: NSObject {
+    typealias NewsInstance = (RemoteDataSource) -> NewsRepository
+    
+    fileprivate let remote: RemoteDataSource
+    
+    private init(remote: RemoteDataSource) {
+        self.remote = remote
+    }
+    
+    static let sharedInstance: NewsInstance = { remoteDataSource in
+        return NewsRepository(remote: remoteDataSource)
+    }
 }
 
 
