@@ -23,6 +23,7 @@ class HomeViewController: UIViewController {
         let tableview = UITableView()
         tableview.translatesAutoresizingMaskIntoConstraints = false
         tableview.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
+        tableview.rowHeight = UITableView.automaticDimension
         
         return tableview
     }()
@@ -30,7 +31,32 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        configureConstraints()
+        
+        newsTableView.delegate = self
+        newsTableView.dataSource = self
+    }
+    
+    private func configureConstraints() {
+        view.addSubview(latestTitleLabel)
+        view.addSubview(newsTableView)
+        
+        
+        let latestTitleLabelConstraints = [
+            latestTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            latestTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            latestTitleLabel.topAnchor.constraint(equalTo: view.topAnchor)
+        ]
+        
+        let newsTableViewConstraints = [
+            newsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsTableView.topAnchor.constraint(equalTo: latestTitleLabel.bottomAnchor, constant: 16),
+            newsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(latestTitleLabelConstraints)
+        NSLayoutConstraint.activate(newsTableViewConstraints)
     }
 }
 
@@ -44,6 +70,4 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
-    
-    
 }
