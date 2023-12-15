@@ -7,8 +7,8 @@
 
 import UIKit
 
-class NewsCollectionViewCell: UICollectionViewCell {
-    static let identifier = String(describing: NewsCollectionViewCell.self)
+class NewsTableViewCell: UITableViewCell {
+    static let identifier = String(describing: NewsTableViewCell.self)
     
     private let thumbnailImageView: UIImageView = {
         let imageview = UIImageView()
@@ -50,12 +50,10 @@ class NewsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureConstraints()
-        
-        
     }
     
     private func configureConstraints() {
