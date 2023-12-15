@@ -55,9 +55,6 @@ class NewsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureConstraints()
-        
-        guard let imageUrl = URL(string: "https://cdn.antaranews.com/cache/1200x800/2020/09/02/D042385E-5A43-4458-B15C-0864B6E728BE.jpeg") else { return }
-        thumbnailImageView.sd_setImage(with: imageUrl)
     }
     
     private func configureConstraints() {
@@ -97,6 +94,19 @@ class NewsTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(timePostLabelConstraints)
         
+    }
+    
+    func configureData(news: News) {
+        guard let imageUrl = URL(string: news.contentThumbnail) else { return }
+        thumbnailImageView.sd_setImage(with: imageUrl)
+        
+        titleLabel.text = news.title
+        
+        guard let postDate = NewsMapper.isoTimeToDate(time: news.createdAt) else { return }
+        print(postDate)
+        
+        timePostLabel.text = postDate.getElapsedInterval()
+
     }
     
     required init?(coder: NSCoder) {

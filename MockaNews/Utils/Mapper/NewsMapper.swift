@@ -23,4 +23,10 @@ final class NewsMapper {
             contentThumbnail: response.contentThumbnail,
             slideshow: response.slideshow)
     }
+    
+    static func isoTimeToDate(time: String) -> Date? {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions.insert(.withFractionalSeconds)
+        return formatter.date(from: time)
+    }
 }
