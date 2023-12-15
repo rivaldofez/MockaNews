@@ -26,4 +26,12 @@ final class NewsRepository: NSObject {
     }
 }
 
+extension NewsRepository: NewsRepositoryProtocol {
+    func getNews() -> RxSwift.Observable<[News]> {
+        return self.remote.getNews()
+            .map { NewsMapper.mapNewsResponsesToDomain(responses: $0) }
+    }
+    
+}
+
 
