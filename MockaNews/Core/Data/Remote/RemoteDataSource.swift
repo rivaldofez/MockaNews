@@ -12,3 +12,8 @@ import Alamofire
 protocol RemoteDataSourceProtocol: AnyObject {
     func getNews() -> Observable<NewsResponse>
 }
+
+
+final class RemoteDataSource: NSObject {
+    static let shared: RemoteDataSource = RemoteDataSource()
+}
