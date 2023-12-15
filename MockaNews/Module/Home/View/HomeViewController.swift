@@ -7,7 +7,15 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+
+protocol HomeViewProtocol {
+    func updateNewsList(with news: [News])
+}
+
+class HomeViewController: UIViewController, HomeViewProtocol {
+    func updateNewsList(with news: [News]) {
+        
+    }
     
     private let latestTitleLabel: UILabel = {
         let label = UILabel()
