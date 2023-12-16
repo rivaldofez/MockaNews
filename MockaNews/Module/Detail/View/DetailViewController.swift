@@ -18,18 +18,33 @@ class DetailViewController: UIViewController, DetailViewProtocol {
     var imagesNews: [String] = []
     
     func updateNewsData(news: News) {
-        titleLabel.text = news.title
+        titleLabel.text = news.title.capitalized
         contributorLabel.text = "By \(news.contributorName)"
         timePostLabel.text = NewsMapper.isoTimeToDate(time: news.createdAt)?.formatDatePost()
         descriptionLabel.text = news.content
+        setMainImage(image: news.slideshow.first ?? news.contentThumbnail)
         
-        DispatchQueue.main.async {
-            self.imagesNews.removeAll()
-            self.imagesNews.append(contentsOf: news.slideshow)
-            self.newsImageCollectionView.reloadData()
+        if(news.slideshow.count > 0){
+            self.newsImageCollectionView.isHidden = false
+            DispatchQueue.main.async {
+                self.imagesNews.removeAll()
+                self.imagesNews.append(contentsOf: news.slideshow)
+                self.newsImageCollectionView.reloadData()
+            }
+        } else {
+            self.newsImageCollectionView.isHidden = true
         }
     }
     
+    private let headerImageView: UIImageView = {
+        let imageview = UIImageView()
+        imageview.translatesAutoresizingMaskIntoConstraints = false
+        imageview.contentMode = .scaleAspectFit
+        imageview.image = UIImage(named: "HeaderImage")
+        imageview.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        return imageview
+    }()
 
     private var mainScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -130,13 +145,12 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         
         newsImageCollectionView.delegate = self
         newsImageCollectionView.dataSource = self
-        
-        
-        guard let url = URL(string: "https://static.cdntap.com/tap-assets-prod/wp-content/uploads/sites/24/2020/11/pelajaran-berharga-drama-korea-start-up-lead.jpg") else { return }
-        newsImageView.sd_setImage(with: url)
     }
     
     private func configureConstraints() {
+        self.navigationItem.titleView = headerImageView
+        self.navigationItem.titleView = headerImageView
+        view.addSubview(headerImageView)
         view.addSubview(mainScrollView)
         mainScrollView.addSubview(mainScrollStackView)
         mainScrollStackView.addArrangedSubview(titleLabel)
@@ -191,7 +205,6 @@ class DetailViewController: UIViewController, DetailViewProtocol {
             descriptionLabel.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
             descriptionLabel.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
         ]
-        
         
         mainScrollStackView.setCustomSpacing(16, after: titleLabel)
         mainScrollStackView.setCustomSpacing(16, after: timePostLabel)

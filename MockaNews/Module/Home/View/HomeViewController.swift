@@ -33,6 +33,16 @@ class HomeViewController: UIViewController, HomeViewProtocol {
 
     }
     
+    private let headerImageView: UIImageView = {
+        let imageview = UIImageView()
+        imageview.translatesAutoresizingMaskIntoConstraints = false
+        imageview.contentMode = .scaleAspectFit
+        imageview.image = UIImage(named: "HeaderImage")
+        imageview.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        return imageview
+    }()
+    
     private var mainScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -89,12 +99,11 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         let pageControl = UIPageControl()
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.currentPage = 0
-        pageControl.currentPageIndicatorTintColor = .red
+        pageControl.currentPageIndicatorTintColor = .systemPink
         pageControl.pageIndicatorTintColor = .gray
         return pageControl
     }()
-    
-    
+
     private let newsTableView: UITableView = {
         let tableview = UITableView()
         tableview.translatesAutoresizingMaskIntoConstraints = false
@@ -117,11 +126,13 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         imageSlidesCollectionView.dataSource = self
         
         DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
+            self.timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
         }
     }
     
     private func configureConstraints() {
+        self.navigationItem.titleView = headerImageView
+        self.navigationController?.navigationBar.tintColor = UIColor.systemPink
         
         view.addSubview(mainScrollView)
         mainScrollView.addSubview(mainScrollStackView)
@@ -134,7 +145,7 @@ class HomeViewController: UIViewController, HomeViewProtocol {
         let mainScrollViewConstraints = [
             mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mainScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             mainScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         
@@ -152,14 +163,8 @@ class HomeViewController: UIViewController, HomeViewProtocol {
             imageSlidesCollectionView.heightAnchor.constraint(equalToConstant: 340)
         ]
         
-        let imageSlidesPageControlConstraints = [
-            imageSlidesPageControl.bottomAnchor.constraint(equalTo: imageSlidesCollectionView.bottomAnchor, constant: -40),
-            imageSlidesPageControl.centerXAnchor.constraint(equalTo: mainScrollStackView.centerXAnchor)
-        ]
-        
         mainScrollStackView.setCustomSpacing(32, after: imageSlidesPageControl)
         mainScrollStackView.setCustomSpacing(32, after: latestTitleLabel)
-        
         
         let newsTableViewConstraints = [
             newsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -223,7 +228,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.configureData(news: newsTableData[indexPath.item])
         
         return cell
-        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter?.didSelectNewsItem(news: newsTableData[indexPath.item])
     }
 }
 
