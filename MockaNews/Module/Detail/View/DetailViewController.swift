@@ -20,7 +20,7 @@ class DetailViewController: UIViewController {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.alignment = .leading
+        stackView.alignment = .center
         stackView.spacing = 8
         return stackView
     }()
@@ -40,6 +40,7 @@ class DetailViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "By Videlia"
+        label.textAlignment = .left
         label.font = .systemFont(ofSize: 12, weight: .semibold)
         label.textColor = UIColor.systemPink
         
@@ -69,7 +70,7 @@ class DetailViewController: UIViewController {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        layout.itemSize = CGSize(width: 100, height: 50)
+        layout.itemSize = CGSize(width: 140, height: 80)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -104,6 +105,10 @@ class DetailViewController: UIViewController {
 
         configureConstraints()
         
+        newsImageCollectionView.delegate = self
+        newsImageCollectionView.dataSource = self
+        
+        
         guard let url = URL(string: "https://static.cdntap.com/tap-assets-prod/wp-content/uploads/sites/24/2020/11/pelajaran-berharga-drama-korea-start-up-lead.jpg") else { return }
         newsImageView.sd_setImage(with: url)
     }
@@ -133,12 +138,58 @@ class DetailViewController: UIViewController {
             mainScrollStackView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
         ]
         
+        let newsImageCollectionViewConstraints = [
+            newsImageCollectionView.heightAnchor.constraint(equalToConstant: 80),
+            newsImageCollectionView.widthAnchor.constraint(equalToConstant: view.frame.width)
+        ]
+        
+        let titleLabelConstraints = [
+            titleLabel.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8)
+        ]
+        
+        let contributorLabelConstraints = [
+            contributorLabel.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
+            contributorLabel.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
+        ]
+        
+        let timePostLabelConstraints = [
+            timePostLabel.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
+            timePostLabel.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
+        ]
+        
+        let descriptionLabelConstraints = [
+            descriptionLabel.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor, constant: 8),
+            descriptionLabel.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
+        ]
+        
         mainScrollStackView.setCustomSpacing(16, after: titleLabel)
         mainScrollStackView.setCustomSpacing(16, after: timePostLabel)
         mainScrollStackView.setCustomSpacing(16, after: newsImageCollectionView)
         
-        
         NSLayoutConstraint.activate(mainScrollViewConstraints)
         NSLayoutConstraint.activate(mainScrollStackViewConstraints)
+        NSLayoutConstraint.activate(newsImageCollectionViewConstraints)
+        NSLayoutConstraint.activate(titleLabelConstraints)
+        NSLayoutConstraint.activate(contributorLabelConstraints)
+        NSLayoutConstraint.activate(timePostLabelConstraints)
+        NSLayoutConstraint.activate(descriptionLabelConstraints)
     }
+}
+
+extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 30
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsImageCollectionViewCell.identifier, for: indexPath) as? NewsImageCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.configure(image: "https://static.cdntap.com/tap-assets-prod/wp-content/uploads/sites/24/2020/11/pelajaran-berharga-drama-korea-start-up-lead.jpg")
+        
+        return cell
+    }
+    
+    
 }
