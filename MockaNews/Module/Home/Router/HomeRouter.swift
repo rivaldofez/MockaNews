@@ -13,6 +13,8 @@ protocol HomeRouterProtocol {
     var begin: BeginEntry? { get set }
     
     static func start() -> HomeRouterProtocol
+    
+    func navigateToDetail(news: News)
 }
 
 class HomeRouter: HomeRouterProtocol {
@@ -33,8 +35,9 @@ class HomeRouter: HomeRouterProtocol {
         router.begin = view as? BeginEntry
         
         return router
-        
     }
     
-    
+    func navigateToDetail(news: News) {
+        
+    }
 }

@@ -40,4 +40,8 @@ class HomePresenter: HomePresenterProtocol {
                 
             }.disposed(by: disposeBag)
     }
+    
+    func didSelectNewsItem(news: News) {
+        router
+    }
 }
