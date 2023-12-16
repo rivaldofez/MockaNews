@@ -16,9 +16,18 @@ protocol DetailViewProtocol {
 
 class DetailViewController: UIViewController, DetailViewProtocol {
     var presenter: DetailPresenterProtocol?
+    var imagesNews: [String] = []
     
     func updateNewsData(news: News) {
         titleLabel.text = news.title
+        contributorLabel.text = "By \(news.contributorName)"
+        timePostLabel.text = NewsMapper.isoTimeToDate(time: news.createdAt)?.formatDatePost()
+        
+        DispatchQueue.main.async {
+            self.imagesNews.removeAll()
+            self.imagesNews.append(contentsOf: news.slideshow)
+            self.newsImageCollectionView.reloadData()
+        }
     }
     
 
@@ -192,14 +201,16 @@ class DetailViewController: UIViewController, DetailViewProtocol {
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return imagesNews.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsImageCollectionViewCell.identifier, for: indexPath) as? NewsImageCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.configure(image: "https://static.cdntap.com/tap-assets-prod/wp-content/uploads/sites/24/2020/11/pelajaran-berharga-drama-korea-start-up-lead.jpg")
+        
+        
+        cell.configure(image: imagesNews[indexPath.item])
         
         return cell
     }

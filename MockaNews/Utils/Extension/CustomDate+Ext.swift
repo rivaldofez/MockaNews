@@ -23,4 +23,12 @@ extension Date {
             return "beberapa waktu yang lalu"
         }
     }
+    
+    func formatDatePost() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, d MMMM yyyy"
+        dateFormatter.locale = Locale(identifier: "id")
+        
+        return dateFormatter.string(from: self)
+    }
 }
