@@ -9,13 +9,29 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    private var mainScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    // Main Stack View
+    private var mainScrollStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 8
+        return stackView
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Siap-siap, BTS dikabarkan akan rilis album BE versi Terbaru"
+        label.numberOfLines = 0
         label.font = .systemFont(ofSize: 28, weight: .bold)
         label.textAlignment = .justified
-        
         
         return label
     }()
@@ -83,19 +99,46 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .systemBackground
 
-        // Do any additional setup after loading the view.
+        configureConstraints()
+        
+        guard let url = URL(string: "https://static.cdntap.com/tap-assets-prod/wp-content/uploads/sites/24/2020/11/pelajaran-berharga-drama-korea-start-up-lead.jpg") else { return }
+        newsImageView.sd_setImage(with: url)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func configureConstraints() {
+        view.addSubview(mainScrollView)
+        mainScrollView.addSubview(mainScrollStackView)
+        mainScrollStackView.addArrangedSubview(titleLabel)
+        mainScrollStackView.addArrangedSubview(contributorLabel)
+        mainScrollStackView.addArrangedSubview(timePostLabel)
+        mainScrollStackView.addArrangedSubview(newsImageView)
+        mainScrollStackView.addArrangedSubview(newsImageCollectionView)
+        mainScrollStackView.addArrangedSubview(descriptionLabel)
+        
+        let mainScrollViewConstraints = [
+            mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mainScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mainScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        
+        let mainScrollStackViewConstraints = [
+            mainScrollStackView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor),
+            mainScrollStackView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor),
+            mainScrollStackView.topAnchor.constraint(equalTo: mainScrollView.topAnchor),
+            mainScrollStackView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor),
+            mainScrollStackView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
+        ]
+        
+        mainScrollStackView.setCustomSpacing(16, after: titleLabel)
+        mainScrollStackView.setCustomSpacing(16, after: timePostLabel)
+        mainScrollStackView.setCustomSpacing(16, after: newsImageCollectionView)
+        
+        
+        NSLayoutConstraint.activate(mainScrollViewConstraints)
+        NSLayoutConstraint.activate(mainScrollStackViewConstraints)
     }
-    */
-
 }
