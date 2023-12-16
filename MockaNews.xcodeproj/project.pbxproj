@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7E3F0D322B2D991C00356F07 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3F0D312B2D991C00356F07 /* DetailViewController.swift */; };
 		7E3F0D342B2D9AB300356F07 /* NewsImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3F0D332B2D9AB300356F07 /* NewsImageCollectionViewCell.swift */; };
+		7E3F0D382B2DA9EC00356F07 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3F0D372B2DA9EC00356F07 /* DetailPresenter.swift */; };
+		7E3F0D3A2B2DAA3B00356F07 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3F0D392B2DAA3B00356F07 /* DetailRouter.swift */; };
 		7E3FB7352B2CDBB900817D8D /* NewsSlideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3FB7342B2CDBB900817D8D /* NewsSlideCollectionViewCell.swift */; };
 		7EB6E5FE2B2CB320003729C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB6E5FD2B2CB320003729C9 /* AppDelegate.swift */; };
 		7EB6E6002B2CB320003729C9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB6E5FF2B2CB320003729C9 /* SceneDelegate.swift */; };
@@ -42,6 +44,8 @@
 /* Begin PBXFileReference section */
 		7E3F0D312B2D991C00356F07 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7E3F0D332B2D9AB300356F07 /* NewsImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		7E3F0D372B2DA9EC00356F07 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
+		7E3F0D392B2DAA3B00356F07 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		7E3FB7342B2CDBB900817D8D /* NewsSlideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSlideCollectionViewCell.swift; sourceTree = "<group>"; };
 		7EB6E5FA2B2CB320003729C9 /* MockaNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MockaNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EB6E5FD2B2CB320003729C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 		7E3F0D2F2B2D990700356F07 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				7E3F0D362B2DA9E000356F07 /* Router */,
+				7E3F0D352B2DA9DC00356F07 /* Presenter */,
 				7E3F0D302B2D990C00356F07 /* View */,
 			);
 			path = Detail;
@@ -100,6 +106,22 @@
 				7E3F0D332B2D9AB300356F07 /* NewsImageCollectionViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		7E3F0D352B2DA9DC00356F07 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7E3F0D372B2DA9EC00356F07 /* DetailPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7E3F0D362B2DA9E000356F07 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				7E3F0D392B2DAA3B00356F07 /* DetailRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		7EB6E5F12B2CB320003729C9 = {
@@ -377,10 +399,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EB6E6022B2CB320003729C9 /* ViewController.swift in Sources */,
+				7E3F0D3A2B2DAA3B00356F07 /* DetailRouter.swift in Sources */,
 				7EB6E6492B2CBD1F003729C9 /* NewsMapper.swift in Sources */,
 				7EB6E6192B2CB4A0003729C9 /* RemoteDataSource.swift in Sources */,
 				7EB6E6722B2CCDBB003729C9 /* HomePresenter.swift in Sources */,
 				7EB6E6512B2CC0EA003729C9 /* NewsTableViewCell.swift in Sources */,
+				7E3F0D382B2DA9EC00356F07 /* DetailPresenter.swift in Sources */,
 				7E3F0D342B2D9AB300356F07 /* NewsImageCollectionViewCell.swift in Sources */,
 				7EB6E6762B2CCDF7003729C9 /* HomeRouter.swift in Sources */,
 				7EB6E6782B2CD710003729C9 /* CustomDate+Ext.swift in Sources */,

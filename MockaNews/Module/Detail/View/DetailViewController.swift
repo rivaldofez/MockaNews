@@ -7,7 +7,12 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+protocol DetailViewProtocol {
+    
+}
+
+
+class DetailViewController: UIViewController, DetailViewProtocol {
 
     private var mainScrollView: UIScrollView = {
         let scrollView = UIScrollView()
