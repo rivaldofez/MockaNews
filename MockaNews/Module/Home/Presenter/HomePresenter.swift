@@ -14,6 +14,8 @@ protocol HomePresenterProtocol {
     var router: HomeRouterProtocol? { get set }
     
     func getNews()
+    
+    func didSelectNewsItem(news: News)
 }
 
 class HomePresenter: HomePresenterProtocol {
