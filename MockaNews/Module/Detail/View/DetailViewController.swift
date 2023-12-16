@@ -8,11 +8,19 @@
 import UIKit
 
 protocol DetailViewProtocol {
-    
+    var presenter: DetailPresenterProtocol? { get set }
+
+    func updateNewsData(news: News)
 }
 
 
 class DetailViewController: UIViewController, DetailViewProtocol {
+    var presenter: DetailPresenterProtocol?
+    
+    func updateNewsData(news: News) {
+        titleLabel.text = news.title
+    }
+    
 
     private var mainScrollView: UIScrollView = {
         let scrollView = UIScrollView()

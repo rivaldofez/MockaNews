@@ -42,6 +42,6 @@ class HomePresenter: HomePresenterProtocol {
     }
     
     func didSelectNewsItem(news: News) {
-        router
+        router?.navigateToDetail(news: news)
     }
 }

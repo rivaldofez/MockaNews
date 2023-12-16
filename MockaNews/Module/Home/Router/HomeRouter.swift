@@ -38,6 +38,10 @@ class HomeRouter: HomeRouterProtocol {
     }
     
     func navigateToDetail(news: News) {
+        let detailRouter = DetailRouter.createDetail(with: news)
+        guard let detailview = detailRouter.entry else { return }
+        guard let viewcontroller = self.begin else { return }
         
+        viewcontroller.navigationController?.pushViewController(detailview, animated: true)
     }
 }

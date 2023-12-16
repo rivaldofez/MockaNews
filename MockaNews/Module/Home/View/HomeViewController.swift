@@ -205,6 +205,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.didSelectNewsItem(news: newsTableData[indexPath.row])
+    }
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {

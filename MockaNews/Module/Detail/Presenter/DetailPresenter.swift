@@ -20,6 +20,6 @@ class DetailPresenter: DetailPresenterProtocol {
     var router: DetailRouterProtocol?
     
     func setNewsData(news: News) {
-        
+        view?.updateNewsData(news: news)
     }
 }
