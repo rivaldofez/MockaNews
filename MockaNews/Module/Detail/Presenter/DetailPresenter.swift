@@ -10,10 +10,16 @@ import Foundation
 protocol DetailPresenterProtocol {
     var view: DetailViewProtocol? { get set }
     var router: DetailRouterProtocol? { get set }
+    
+    func setNewsData(news: News)
 }
 
 class DetailPresenter: DetailPresenterProtocol {
     var view: DetailViewProtocol?
     
     var router: DetailRouterProtocol?
+    
+    func setNewsData(news: News) {
+        
+    }
 }
