@@ -13,7 +13,6 @@ protocol DetailViewProtocol {
     func updateNewsData(news: News)
 }
 
-
 class DetailViewController: UIViewController, DetailViewProtocol {
     var presenter: DetailPresenterProtocol?
     var imagesNews: [String] = []
@@ -22,6 +21,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         titleLabel.text = news.title
         contributorLabel.text = "By \(news.contributorName)"
         timePostLabel.text = NewsMapper.isoTimeToDate(time: news.createdAt)?.formatDatePost()
+        descriptionLabel.text = news.content
         
         DispatchQueue.main.async {
             self.imagesNews.removeAll()
@@ -53,7 +53,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         label.text = "Siap-siap, BTS dikabarkan akan rilis album BE versi Terbaru"
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 28, weight: .bold)
-        label.textAlignment = .justified
+        label.textAlignment = .left
         
         return label
     }()
@@ -116,6 +116,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "lorem ipsum"
         label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.numberOfLines = 0
         
         return label
     }()
@@ -160,6 +161,12 @@ class DetailViewController: UIViewController, DetailViewProtocol {
             mainScrollStackView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
         ]
         
+        let newsImageViewConstraints = [
+            newsImageView.heightAnchor.constraint(equalToConstant: 300),
+            newsImageView.leadingAnchor.constraint(equalTo: mainScrollStackView.leadingAnchor),
+            newsImageView.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor)
+        ]
+        
         let newsImageCollectionViewConstraints = [
             newsImageCollectionView.heightAnchor.constraint(equalToConstant: 80),
             newsImageCollectionView.widthAnchor.constraint(equalToConstant: view.frame.width)
@@ -185,6 +192,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
             descriptionLabel.trailingAnchor.constraint(equalTo: mainScrollStackView.trailingAnchor, constant: -8),
         ]
         
+        
         mainScrollStackView.setCustomSpacing(16, after: titleLabel)
         mainScrollStackView.setCustomSpacing(16, after: timePostLabel)
         mainScrollStackView.setCustomSpacing(16, after: newsImageCollectionView)
@@ -196,6 +204,12 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         NSLayoutConstraint.activate(contributorLabelConstraints)
         NSLayoutConstraint.activate(timePostLabelConstraints)
         NSLayoutConstraint.activate(descriptionLabelConstraints)
+        NSLayoutConstraint.activate(newsImageViewConstraints)
+    }
+    
+    private func setMainImage(image: String){
+        guard let url = URL(string: image) else { return }
+        newsImageView.sd_setImage(with: url)
     }
 }
 
@@ -207,13 +221,13 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsImageCollectionViewCell.identifier, for: indexPath) as? NewsImageCollectionViewCell else { return UICollectionViewCell() }
-        
-        
-        
+
         cell.configure(image: imagesNews[indexPath.item])
         
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        setMainImage(image: imagesNews[indexPath.item])
+    }
 }
