@@ -103,8 +103,6 @@ class NewsTableViewCell: UITableViewCell {
         titleLabel.text = news.title
         
         guard let postDate = NewsMapper.isoTimeToDate(time: news.createdAt) else { return }
-        print(postDate)
-        
         timePostLabel.text = postDate.getElapsedInterval()
 
     }

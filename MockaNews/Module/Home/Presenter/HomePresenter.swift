@@ -14,6 +14,8 @@ protocol HomePresenterProtocol {
     var router: HomeRouterProtocol? { get set }
     
     func getNews()
+    
+    func didSelectNewsItem(news: News)
 }
 
 class HomePresenter: HomePresenterProtocol {
@@ -37,5 +39,9 @@ class HomePresenter: HomePresenterProtocol {
             } onCompleted: {
                 
             }.disposed(by: disposeBag)
+    }
+    
+    func didSelectNewsItem(news: News) {
+        router?.navigateToDetail(news: news)
     }
 }
